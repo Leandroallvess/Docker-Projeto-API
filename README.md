@@ -11,12 +11,6 @@ Tudo containerizado e orquestrado com Docker Compose
 
 ---
 
-## 📦 Funcionalidades
-
-- Rota `/dados` que retorna uma mensagem JSON.
-- Estrutura modular com controllers, services e uso de boas práticas.
-- Projeto isolado com Docker.
-
 - ***
 
 ## 🛠️ Tecnologias
@@ -54,17 +48,10 @@ npm install = node-modules
 
 3.\*\*Acesse no navegador ou via curl:
 
-API: http://localhost:3000/dados
-
 Frontend: http://localhost:3001
 
 🔄 Comunicação entre os serviços
 O frontend consome os dados diretamente da API via fetch("http://api:3000/...") dentro do container, graças à rede interna criada pelo Docker Compose.
-
-4.\*\*Resposta esperada API 3000/dados:
-{
-"mensagem": "API interna em TypeScript com POO funcionando!"
-}
 
 <--------------------------------------------------------------------->
 
@@ -88,11 +75,17 @@ services:
 api:
 build: ./api
 ports: - "3000:3000"
+networks: - app-network
 
 web:
 build: ./web
 ports: - "3001:80"
 depends_on: - api
+networks: - app-network
+
+networks:
+app-network:
+driver: bridge
 
 <-------------------------------------------------------->
 
