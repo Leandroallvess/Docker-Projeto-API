@@ -17,6 +17,8 @@ routes.get("/produtos", (req, res) => {
   res.json(produtos);
 });
 
+routes.get("/dados", DadosController.getDados);
+
 routes.get("/", (req, res) => {
   res.send("Seja bem-vindo à API de produtos!");
 });

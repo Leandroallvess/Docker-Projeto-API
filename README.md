@@ -1,86 +1,102 @@
 # Docker-Projeto-API
 
-🧩 Projeto: API + Frontend com Docker
-Este projeto é uma aplicação composta por duas partes:
+# 🛍️ Docker-Projeto-API - Ecommerce Simples
 
-Backend (API) em Node.js
+Este projeto é uma aplicação web simples de **lista de produtos**, composta por:
 
-Frontend em HTML, CSS e TypeScript (sem frameworks)
-
-Tudo containerizado e orquestrado com Docker Compose
-
----
-
-- ***
-
-## 🛠️ Tecnologias
-
-- Node.js
-- TypeScript
-- Express
-- Docker & Docker Compose
-- HTML + CSS puro (Frontend)
-- NGINX (para servir o frontend)
+- ✅ Um **backend (API)** feito em **Node.js + Express + TypeScript**, rodando na porta `3000`.
+- ✅ Um **frontend (HTML + CSS + TypeScript)** responsivo e leve, servido via **Nginx**, rodando na porta `3001`.
+- ✅ Containers gerenciados por **Docker Compose**.
 
 ---
 
-## ▶️ Como rodar o projeto
+## 🚀 Funcionalidades
 
-### Pré-requisitos:
+### Backend - Porta `3000`
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- `/` – Rota raiz com status da API.
+- `/dados` – Mensagem gerada pela API via controller.
+- `/produtos` – Lista de produtos simulada (JSON).
+
+### Frontend - Porta `3001`
+
+- Interface responsiva.
+- Exibe lista de produtos consumindo a API do backend.
+- Layout organizado com carrossel de imagens e tabelas (em breve).
+- Códigos escritos em HTML, CSS e TypeScript, compilados via Docker.
 
 ---
 
-### Passos para execução:
-
-1. **Clone o repositório:**
-
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
-
-execute no terminal:
-npm install = node-modules
-
-2. \*\*Execute o Docker compose
-   docker compose up --build
-
-3.\*\*Acesse no navegador ou via curl:
-
-Frontend: http://localhost:3001
-
-🔄 Comunicação entre os serviços
-O frontend consome os dados diretamente da API via fetch("http://api:3000/...") dentro do container, graças à rede interna criada pelo Docker Compose.
+## 🧱 Estrutura do Projeto
 
 <--------------------------------------------------------------------->
 
-.
-├── api/ # Código-fonte do backend (Node.js)
-├── web/ # Frontend HTML + CSS + TypeScript
+Docker-Projeto-API/
+│
+├── backend/
+│ ├── src/
+│ │ ├── controllers/
+│ │ │ └── dadosController.ts
+│ │ ├── routes/
+│ │ │ └── index.ts
+│ │ └── index.ts
+│ ├── package.json
+│ ├── tsconfig.json
+│ └── Dockerfile
+│
+├── frontend/
 │ ├── index.html
 │ ├── styles.css
 │ ├── main.ts
-│ ├── Dockerfile
-│ └── tsconfig.json
-└── docker-compose.yml
+│ ├── tsconfig.json
+│ └── Dockerfile
+│
+├── docker-compose.yml
+└── README.md
 
 <------------------------------------------------------>
+
+---
+
+## 🐳 Como rodar com Docker
+
+> Requisitos: Docker e Docker Compose instalados.
+
+### 1. Clone o repositório:
+
+git clone https://github.com/Leandroallvess/Docker-Projeto-API.git
+cd Docker-Projeto-API
+
+### 2. Suba os containers
+
+docker compose up --build
+
+### 3. Acesse no navegador:
+
+🌐 Frontend: http://localhost:3001
+
+🛠️ API: http://localhost:3000
+
+📦 Rotas da API
+Método Rota Descrição
+GET / Status da API
+GET /dados Mensagem da API (controller)
+GET /produtos Lista de produtos (JSON local)
 
 🐳 docker-compose.yml
 
 version: "3.8"
 
 services:
-api:
-build: ./api
+backend:
+build: ./backend
 ports: - "3000:3000"
 networks: - app-network
 
-web:
-build: ./web
+frontend:
+build: ./frontend
 ports: - "3001:80"
-depends_on: - api
+depends_on: - backend
 networks: - app-network
 
 networks:
@@ -92,3 +108,6 @@ driver: bridge
 👨‍💻 Autor
 Desenvolvido por Leandro Alves
 [LinkedIn](https://www.linkedin.com/in/leandro-aallvess-dev)
+
+📌 Licença
+Este projeto está licenciado sob a MIT License.
