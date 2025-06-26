@@ -1,15 +1,6 @@
 import { Router } from "express";
-import { DadosController } from "../controllers/dadosController";
 
 const routes = Router();
-
-routes.get("/", (req, res) => {
-  res.send("Bem-vindo à API interna!");
-});
-
-routes.get("/dados", DadosController.getDados);
-
-const router = Router();
 
 const produtos = [
   { id: 1, nome: "Camiseta Polo", preco: 49.9 },
@@ -21,7 +12,7 @@ const produtos = [
   { id: 7, nome: "Sapato", preco: 459.9 },
 ];
 
-router.get("/produtos", (req, res) => {
+routes.get("/produtos", (req, res) => {
   res.json(produtos);
 });
 

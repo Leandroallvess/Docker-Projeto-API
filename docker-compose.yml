@@ -5,6 +5,8 @@ services:
     build: ./api
     ports:
       - "3000:3000"
+    networks:
+      - app-network
 
   web:
     build: ./web
@@ -12,3 +14,9 @@ services:
       - "3001:80"
     depends_on:
       - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
