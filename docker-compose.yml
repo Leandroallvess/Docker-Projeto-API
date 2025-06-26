@@ -1,19 +1,19 @@
 version: "3.8"
 
 services:
-  api:
-    build: ./api
+  backend:
+    build: ./backend
     ports:
       - "3000:3000"
     networks:
       - app-network
 
-  web:
-    build: ./web
+  frontend:
+    build: ./frontend
     ports:
       - "3001:80"
     depends_on:
-      - api
+      - backend
     networks:
       - app-network
 

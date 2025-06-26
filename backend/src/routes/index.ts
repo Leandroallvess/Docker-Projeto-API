@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { DadosController } from "../controllers/dadosController";
 
 const routes = Router();
 
@@ -14,6 +15,10 @@ const produtos = [
 
 routes.get("/produtos", (req, res) => {
   res.json(produtos);
+});
+
+routes.get("/", (req, res) => {
+  res.send("Seja bem-vindo à API de produtos!");
 });
 
 export default routes;

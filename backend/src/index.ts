@@ -4,9 +4,9 @@ import routes from "./routes";
 const app = express();
 
 app.use(express.json());
-app.use(routes); // aplica todas as rotas
+app.use(routes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`Backend rodando na porta ${PORT}`);
 });
