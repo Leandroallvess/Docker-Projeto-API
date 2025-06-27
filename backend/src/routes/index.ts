@@ -6,10 +6,6 @@ const routes = Router();
 
 routes.get("/dados", DadosController.getDados);
 
-routes.get("/", (req, res) => {
-  res.send("Seja bem-vindo à API de produtos!");
-});
-
 routes.get("/produtos", (req, res) => {
   res.send(produto1.nome);
 });
