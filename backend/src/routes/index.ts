@@ -11,7 +11,7 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/produtos", (req, res) => {
-  res.json(produto1);
+  res.send(produto1);
 });
 
 const produto1 = new Produto(1, "Camiseta Polo", "Rua A, 123", 49.9);
