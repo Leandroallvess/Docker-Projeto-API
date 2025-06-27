@@ -1,6 +1,6 @@
 import express from "express";
 import routes from "./routes";
-import { produtos } from "./data/produtos";
+import { Produto } from "./service/produtos";
 
 const app = express();
 
@@ -14,5 +14,5 @@ app.listen(PORT, () => {
 });
 
 routes.get("/produtos", (req, res) => {
-  res.json(produtos);
+  res.json(Produto);
 });

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { DadosController } from "../controllers/dadosController";
+import { Produto } from "../service/produtos";
 
 const routes = Router();
 
@@ -9,9 +10,6 @@ routes.get("/", (req, res) => {
   res.send("Seja bem-vindo à API de produtos!");
 });
 
-const produtos = [
-  { id: 1, nome: "Camiseta Polo", preco: 49.9 },
-  { id: 2, nome: "Short Jeans", preco: 59.9 },
-];
+const produto1 = new Produto(1, "Camiseta Polo", "Rua A, 123", 49.9);
 
 export default routes;
