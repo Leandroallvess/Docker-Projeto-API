@@ -18,8 +18,18 @@ Este é um projeto de API REST construída com **Node.js**, **Express** e **Type
 
 ### Backend - Porta `3000`
 
-- `/` – Rota raiz com status da API.
-- `/dados` – Mensagem gerada pela API via controller.
+### 3. Acesse no navegador:
+
+🛠️ API: http://localhost:3000
+
+📦 Rotas da API
+Método Rota Descrição
+GET / Status da API
+GET /dados Mensagem da API (controller)
+GET /produtos Lista de produtos (JSON local)
+
+- `/` – Rota raiz com status da API. // 🚀 API de Produtos no ar! Acesse /dados ou /produtos
+- `/dados` – Mensagem gerada pela API via controller. // "Mensagem gerada pela API via controller, teste do backend"
 - `/produtos` – Lista de produtos simulada (JSON).
 
 ---
@@ -28,14 +38,24 @@ Este é um projeto de API REST construída com **Node.js**, **Express** e **Type
 
 <--------------------------------------------------------------------->
 
-backend/
-├── src/
-│ ├── index.ts # Arquivo principal
-│ ├── routes/index.ts # Rotas da aplicação
-│ └── controllers/ # Controllers organizados
-├── package.json
-├── tsconfig.json
-└── Dockerfile
+Docker-Projeto-API/
+├── backend/
+│ ├── Dockerfile
+│ ├── package.json
+│ ├── tsconfig.json
+│ ├── .env
+│ ├── src/
+│ │ ├── index.ts
+│ │ ├── routes/
+│ │ │ └── index.ts
+│ │ ├── controllers/
+│ │ │ └── dadosController.ts
+│ │ ├── models/
+│ │ │ └── produto.ts
+│ │ ├── service/
+│ │ │ └── produtoService.ts
+│ │ └── utils/
+├── docker-compose.yml
 
 <------------------------------------------------------>
 
@@ -72,16 +92,7 @@ cd Docker-Projeto-API
 
 docker compose up --build
 
-### 3. Acesse no navegador:
-
-🛠️ API: http://localhost:3000
-
-📦 Rotas da API
-Método Rota Descrição
-GET / Status da API
-GET /dados Mensagem da API (controller)
-GET /produtos Lista de produtos (JSON local)
-
+<------------------------------------------------------->
 🐳 docker-compose.yml
 
 version: "3.8"

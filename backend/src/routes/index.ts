@@ -1,16 +1,17 @@
 import { Router } from "express";
 import { DadosController } from "../controllers/dadosController";
-import { Produto } from "../service/produtos";
+import { getProdutos, Produto } from "../service/produtoService";
 
 const routes = Router();
+
+routes.get("/", (req, res) => {
+  res.send("🚀 API de Produtos no ar! Acesse /dados ou /produtos");
+});
 
 routes.get("/dados", DadosController.getDados);
 
 routes.get("/produtos", (req, res) => {
-  res.send(produto1.nome);
+  res.json(getProdutos()); // chama a função para retornar os produtos
 });
-
-const produto1 = new Produto(1, "Camiseta Polo", "Rua A, 123", 49.9);
-//console.log(produto1.nome); // "Camiseta Polo"
 
 export default routes;
