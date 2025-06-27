@@ -1,12 +1,16 @@
-# Docker-Projeto-API
+# 🚀 Docker Projeto API - Backend
 
-# 🛍️ Docker-Projeto-API - Ecommerce Simples
+Este é um projeto de API REST construída com **Node.js**, **Express** e **TypeScript**, containerizada com **Docker**. A API serve uma lista de produtos e uma rota de exemplo para testes.
 
-Este projeto é uma aplicação web simples de **lista de produtos**, composta por:
+---
 
-- ✅ Um **backend (API)** feito em **Node.js + Express + TypeScript**, rodando na porta `3000`.
-- ✅ Um **frontend (HTML + CSS + TypeScript)** responsivo e leve, servido via **Nginx**, rodando na porta `3001`.
-- ✅ Containers gerenciados por **Docker Compose**.
+## 📦 Tecnologias Utilizadas
+
+- Node.js
+- Express
+- TypeScript
+- Docker
+- ts-node-dev
 
 ---
 
@@ -18,45 +22,42 @@ Este projeto é uma aplicação web simples de **lista de produtos**, composta p
 - `/dados` – Mensagem gerada pela API via controller.
 - `/produtos` – Lista de produtos simulada (JSON).
 
-### Frontend - Porta `3001`
-
-- Interface responsiva.
-- Exibe lista de produtos consumindo a API do backend.
-- Layout organizado com carrossel de imagens e tabelas (em breve).
-- Códigos escritos em HTML, CSS e TypeScript, compilados via Docker.
-
 ---
 
 ## 🧱 Estrutura do Projeto
 
 <--------------------------------------------------------------------->
 
-Docker-Projeto-API/
-│
-├── backend/
-│ ├── src/
-│ │ ├── controllers/
-│ │ │ └── dadosController.ts
-│ │ ├── routes/
-│ │ │ └── index.ts
-│ │ └── index.ts
-│ ├── package.json
-│ ├── tsconfig.json
-│ └── Dockerfile
-│
-├── frontend/
-│ ├── index.html
-│ ├── styles.css
-│ ├── main.ts
-│ ├── tsconfig.json
-│ └── Dockerfile
-│
-├── docker-compose.yml
-└── README.md
+backend/
+├── src/
+│ ├── index.ts # Arquivo principal
+│ ├── routes/index.ts # Rotas da aplicação
+│ └── controllers/ # Controllers organizados
+├── package.json
+├── tsconfig.json
+└── Dockerfile
 
 <------------------------------------------------------>
 
----
+### ✅ Rodando Localmente
+
+# Clone o projeto
+
+git clone https://github.com/Leandroallvess/Docker-Projeto-API.git
+
+# Acesse a pasta do backend
+
+cd Docker-Projeto-API/backend
+
+# Instale as dependências
+
+npm install
+
+# Rode a aplicação em modo desenvolvimento
+
+npm run dev
+
+A API ficará disponível em: http://localhost:3000
 
 ## 🐳 Como rodar com Docker
 
@@ -72,8 +73,6 @@ cd Docker-Projeto-API
 docker compose up --build
 
 ### 3. Acesse no navegador:
-
-🌐 Frontend: http://localhost:3001
 
 🛠️ API: http://localhost:3000
 
@@ -91,12 +90,6 @@ services:
 backend:
 build: ./backend
 ports: - "3000:3000"
-networks: - app-network
-
-frontend:
-build: ./frontend
-ports: - "3001:80"
-depends_on: - backend
 networks: - app-network
 
 networks:

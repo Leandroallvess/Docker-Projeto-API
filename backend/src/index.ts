@@ -1,5 +1,6 @@
 import express from "express";
 import routes from "./routes";
+import { produtos } from "./data/produtos";
 
 const app = express();
 
@@ -10,4 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Backend rodando na porta ${PORT}`);
+});
+
+routes.get("/produtos", (req, res) => {
+  res.json(produtos);
 });
