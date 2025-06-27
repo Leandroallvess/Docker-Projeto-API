@@ -11,10 +11,10 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/produtos", (req, res) => {
-  res.send(produto1);
+  res.send(produto1.nome);
 });
 
 const produto1 = new Produto(1, "Camiseta Polo", "Rua A, 123", 49.9);
-console.log(produto1.nome); // "Camiseta Polo"
+//console.log(produto1.nome); // "Camiseta Polo"
 
 export default routes;
