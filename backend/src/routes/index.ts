@@ -10,6 +10,8 @@ routes.get("/", (req, res) => {
   res.send("Seja bem-vindo à API de produtos!");
 });
 
-const produto1 = new Produto(1, "Camiseta Polo", "Rua A, 123", 49.9);
+routes.get("/produtos", (req, res) => {
+  res.json(Produto);
+});
 
 export default routes;
