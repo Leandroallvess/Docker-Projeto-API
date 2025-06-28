@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { DadosController } from "../controllers/dadosController";
-import { getProdutos, Produto } from "../service/produtoService";
+import { CategoriaController } from "../controllers/categoriaController";
+import { ProdutoController } from "../controllers/produtoController";
 
 const routes = Router();
 
@@ -8,10 +8,16 @@ routes.get("/", (req, res) => {
   res.send("🚀 API de Produtos no ar! Acesse /dados ou /produtos");
 });
 
-routes.get("/dados", DadosController.getDados);
+// Categoria
+routes.get("/categorias", CategoriaController.listar);
+routes.post("/categorias", CategoriaController.criar);
 
-routes.get("/produtos", (req, res) => {
-  res.json(getProdutos()); // chama a função para retornar os produtos
-});
+// Produto
+routes.get("/produtos", ProdutoController.listar);
+routes.get(
+  "/produtos/categoria/:categoriaId",
+  ProdutoController.listarPorCategoria
+);
+routes.post("/produtos", ProdutoController.criar);
 
 export default routes;
