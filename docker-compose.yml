@@ -1,13 +1,36 @@
-version: "3.8"
-
 services:
   backend:
     build: ./backend
+    container_name: api-backend
     ports:
       - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/projetodb
+    depends_on:
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./backend:/app # <--- montar aqui, no backend
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: projetodb
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  pgdata:
