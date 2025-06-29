@@ -6,7 +6,8 @@
     "rootDir": ".", // compila tudo a partir da raiz
     "strict": true,
     "esModuleInterop": true,
-    "types": ["node"]
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src", "prisma"] // inclui código em src e arquivos de seed em prisma
 }

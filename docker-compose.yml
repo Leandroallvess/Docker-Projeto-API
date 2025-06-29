@@ -12,6 +12,8 @@ services:
       - app-network
     volumes:
       - ./backend:/app # <--- montar aqui, no backend
+    env_file:
+      - ./backend/.env
 
   db:
     image: postgres:15

@@ -2,7 +2,9 @@ import { Router } from "express";
 import { CategoriaController } from "../controllers/categoriaController";
 import { ProdutoController } from "../controllers/produtoController";
 import { validateCategoria } from "../middlewares/validateCategoriaMiddleware";
-import { autenticar } from "../middlewares/authMmiddleware";
+import { autenticar } from "../middlewares/authMiddleware";
+import { validateProduto } from "../middlewares/validateProdutoMiddleware";
+import { UsuarioController } from "../controllers/usuarioController";
 
 const routes = Router();
 
@@ -29,8 +31,22 @@ routes.get(
   "/produtos/categoria/:categoriaId",
   ProdutoController.listarPorCategoria
 );
+
+// Produto Autenticaçnão
 routes.post("/produtos", autenticar, ProdutoController.criar);
 routes.put("/produtos/:id", autenticar, ProdutoController.atualizar);
 routes.delete("/produtos/:id", autenticar, ProdutoController.deletar);
+
+// ... Produto Autenticar e Validar
+
+routes.post("/produtos", autenticar, validateProduto, ProdutoController.criar);
+
+// Usuarios & login
+routes.post("/usuarios", UsuarioController.cadastrar);
+routes.post("/login", UsuarioController.login);
+
+routes.get("/teste-auth", autenticar, (req, res) => {
+  res.json({ user: req.user });
+});
 
 export default routes;
