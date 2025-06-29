@@ -25,7 +25,7 @@ export function autenticarJWT(req: Request, res: Response, next: NextFunction) {
 
     // Garantir que decoded é do tipo esperado
     if (typeof decoded === "object" && decoded !== null) {
-      // Aqui você pode ajustar os campos conforme o payload do seu JWT
+      // ajustar os campos conforme o payload do seu JWT
       req.user = {
         id: (decoded as any).id,
         nome: (decoded as any).nome,
