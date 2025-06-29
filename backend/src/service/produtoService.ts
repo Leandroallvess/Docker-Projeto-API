@@ -1,18 +1,35 @@
-import { Produto } from "../models/produto";
-import { Categoria } from "./categoriaService";
+import { prisma } from "../config/prismaClient";
 
-const produtos: Produto[] = [
-  new Produto(1, "Camiseta Polo", 49.9, new Categoria(1, "Roupas")),
-  new Produto(2, "Tênis Nike", 199.9, new Categoria(2, "Calçados")),
-];
+export const produtoService = {
+  async listar() {
+    return prisma.produto.findMany({
+      include: { categoria: true },
+    });
+  },
 
-const getProdutos = () => produtos;
+  async listarPorCategoria(categoriaId: number) {
+    return prisma.produto.findMany({
+      where: { categoriaId },
+      include: { categoria: true },
+    });
+  },
 
-const getProdutosPorCategoria = (categoriaId: number) =>
-  produtos.filter((produto) => produto.categoria.id === categoriaId);
+  async criar(dados: any) {
+    return prisma.produto.create({
+      data: dados,
+    });
+  },
 
-const addProduto = (produto: Produto) => {
-  produtos.push(produto);
+  async atualizar(id: number, dados: any) {
+    return prisma.produto.update({
+      where: { id },
+      data: dados,
+    });
+  },
+
+  async deletar(id: number) {
+    return prisma.produto.delete({
+      where: { id },
+    });
+  },
 };
-
-export { getProdutos, getProdutosPorCategoria, addProduto, Produto };

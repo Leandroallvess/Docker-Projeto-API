@@ -1,14 +1,27 @@
-import { Categoria } from "../models/categoria";
+import { Categoria } from "../entities/categoriaEntities";
+import { CategoriaRepository } from "../repositories/categoriaRepository";
 
-const categorias: Categoria[] = [
-  new Categoria(1, "Roupas"),
-  new Categoria(2, "Calçados"),
-];
+const repo = new CategoriaRepository();
 
-const getCategorias = () => categorias;
+export class CategoriaService {
+  listar() {
+    return repo.listarTodos();
+  }
 
-const addCategoria = (categoria: Categoria) => {
-  categorias.push(categoria);
-};
+  buscar(id: number) {
+    return repo.buscarPorId(id);
+  }
 
-export { getCategorias, addCategoria, Categoria };
+  criar(categoria: Categoria) {
+    return repo.criar(categoria);
+  }
+
+  atualizar(id: number, categoria: Categoria) {
+    return repo.atualizar(id, categoria);
+  }
+
+  deletar(id: number) {
+    return repo.deletar(id);
+  }
+}
+export { Categoria };

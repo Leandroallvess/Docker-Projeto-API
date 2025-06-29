@@ -1,28 +1,73 @@
 import { Request, Response } from "express";
-import {
-  getProdutos,
-  getProdutosPorCategoria,
-  addProduto,
-  Produto,
-} from "../service/produtoService";
-import { Categoria } from "../models/categoria";
+import { produtoService } from "../service/produtoService"; // import correto
 
 export class ProdutoController {
-  static listar(req: Request, res: Response) {
-    res.json(getProdutos());
+  static async listar(req: Request, res: Response) {
+    try {
+      const produtos = await produtoService.listar();
+      res.json(produtos);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ mensagem: "Erro ao listar produtos" });
+    }
   }
 
-  static listarPorCategoria(req: Request, res: Response) {
-    const categoriaId = Number(req.params.categoriaId);
-    const produtosFiltrados = getProdutosPorCategoria(categoriaId);
-    res.json(produtosFiltrados);
+  static async listarPorCategoria(req: Request, res: Response) {
+    try {
+      const categoriaId = Number(req.params.categoriaId);
+      const produtos = await produtoService.listarPorCategoria(categoriaId);
+      res.json(produtos);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ mensagem: "Erro ao listar produtos por categoria" });
+    }
   }
 
-  static criar(req: Request, res: Response) {
-    const { id, nome, preco, categoriaId, categoriaNome } = req.body;
-    const categoria = new Categoria(categoriaId, categoriaNome);
-    const novoProduto = new Produto(id, nome, preco, categoria);
-    addProduto(novoProduto);
-    res.status(201).json(novoProduto);
+  static async criar(req: Request, res: Response) {
+    try {
+      const novoProduto = await produtoService.criar(req.body);
+      res.status(201).json(novoProduto);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ mensagem: "Erro ao criar produto" });
+    }
+  }
+
+  static async atualizar(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const dados = req.body;
+      const produtoAtualizado = await produtoService.atualizar(
+        Number(id),
+        dados
+      );
+
+      if (!produtoAtualizado) {
+        return res.status(404).json({ mensagem: "Produto não encontrado" });
+      }
+
+      return res.json(produtoAtualizado);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ mensagem: "Erro ao atualizar produto" });
+    }
+  }
+
+  static async deletar(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const produtoDeletado = await produtoService.deletar(Number(id));
+
+      if (!produtoDeletado) {
+        return res.status(404).json({ mensagem: "Produto não encontrado" });
+      }
+
+      return res.status(204).send(); // No Content
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ mensagem: "Erro ao deletar produto" });
+    }
   }
 }

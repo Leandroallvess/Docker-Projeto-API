@@ -1,4 +1,4 @@
-import { Catalogo } from "../models/catalogo";
+import { Catalogo } from "../entities/catalogo";
 
 class CatalogoService {
   private catalogos: Catalogo[] = [];

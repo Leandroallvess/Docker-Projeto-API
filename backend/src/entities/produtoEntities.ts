@@ -1,4 +1,4 @@
-import { Categoria } from "./categoria";
+import { Categoria } from "./categoriaEntities";
 
 export interface IProduto {
   id: number;
@@ -7,6 +7,9 @@ export interface IProduto {
 }
 
 class Produto {
+  static atualizar(arg0: number, dados: any) {
+    throw new Error("Method not implemented.");
+  }
   constructor(
     public id: number,
     public nome: string,
