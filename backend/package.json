@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
+    "seed": "tsc -p tsconfig.seed.json && node dist/seed/seed.js",
     "start": "node dist/index.js"
   },
   "prisma": {
