@@ -1,0 +1,45 @@
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Categoria {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  produtos  Produto[] // relação 1:N com Produto
+  criadaEm  DateTime  @default(now())
+  atualizadaEm DateTime @updatedAt
+}
+
+model Produto {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  preco       Float
+  descricao   String?
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  criadoEm    DateTime  @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  email        String   @unique
+  senha        String
+  role         String   @default("user")
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@map("usuario")
+}
+
+
+
+
