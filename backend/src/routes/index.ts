@@ -1,19 +1,14 @@
-import express from "express";
-import path from "path";
-import routes from "routes";
+import { Router } from "express";
+import { UsuarioController } from "../controllers/usuarioController";
 
-const app = express();
+const router = Router();
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "../frontend"))); // Ajuste se necessário
+// Rotas de usuário diretamente aqui:
 
-// Rotas da API
-app.use("/api", routes);
+router.get("/usuarios", UsuarioController.listar); // Listar usuários
+router.post("/usuarios/cadastrar", UsuarioController.cadastrar); // Cadastrar usuário
+router.post("/usuarios/login", UsuarioController.login); // Login usuário
 
-// Iniciar o servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
-});
+// Outras rotas podem ser adicionadas aqui, usando os controllers correspondentes
 
-export default app;
+export default router;

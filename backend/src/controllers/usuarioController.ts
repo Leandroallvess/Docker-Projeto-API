@@ -61,12 +61,29 @@ export class UsuarioController {
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email,
-        role: usuario.role, // necessário para validação de admin
+        role: usuario.role,
       },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
 
     return res.json({ token });
+  }
+
+  static async listar(req: Request, res: Response) {
+    try {
+      const usuarios = await prisma.usuario.findMany({
+        select: {
+          id: true,
+          nome: true,
+          email: true,
+          role: true,
+          criadoEm: true,
+        },
+      });
+      res.json(usuarios);
+    } catch (error) {
+      res.status(500).json({ mensagem: "Erro ao listar usuários" });
+    }
   }
 }
