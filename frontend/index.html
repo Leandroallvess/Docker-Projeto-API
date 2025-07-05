@@ -10,16 +10,19 @@
 
 <h2>Login</h2>
 <div id="login">
-  <input type="email" id="email" placeholder="Email" />
-  <input type="password" id="senha" placeholder="Senha" />
-  <button id="btnLogin">Entrar</button>
-  <p id="mensagem"></p>
+  <form id="formLogin">
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="senha" placeholder="Senha" />
+    <button type="submit" id="btnLogin">Entrar</button>
+    <p id="mensagem"></p>
+  </form>
 </div>
 
-<div id="dashboard">
+<div id="dashboard" style="display: none;">
   <h2>Categorias</h2>
   <button id="btnLogout">Logout</button>
   <ul id="listaCategorias"></ul>
+  <p id="usuariosCadastrados"></p>
   <p id="msgErro"></p>
 </div>
 

@@ -3,12 +3,14 @@ const dashboardDiv = document.getElementById("dashboard");
 const mensagemP = document.getElementById("mensagem");
 const msgErroP = document.getElementById("msgErro");
 const listaCategorias = document.getElementById("listaCategorias");
+const usuariosCadastradosP = document.getElementById("usuariosCadastrados");
 
 function exibirDashboard() {
   loginDiv.style.display = "none";
   dashboardDiv.style.display = "block";
   mensagemP.textContent = "";
   carregarCategorias();
+  carregarUsuarios(); // 🔥 nova função para exibir usuários
 }
 
 function exibirLogin() {
@@ -17,6 +19,7 @@ function exibirLogin() {
   mensagemP.textContent = "";
   msgErroP.textContent = "";
   listaCategorias.innerHTML = "";
+  usuariosCadastradosP.textContent = ""; // limpa o parágrafo de usuários
 }
 
 async function carregarCategorias() {
@@ -49,7 +52,30 @@ async function carregarCategorias() {
   }
 }
 
-document.getElementById("btnLogin").addEventListener("click", async () => {
+async function carregarUsuarios() {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("/api/usuarios", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (!res.ok) throw new Error("Erro: " + res.status);
+
+    const usuarios = await res.json();
+    const nomes = usuarios.map((u) => u.nome).join(", ");
+    usuariosCadastradosP.textContent = "👥 Usuários cadastrados: " + nomes;
+  } catch (err) {
+    usuariosCadastradosP.textContent = "Erro ao carregar usuários";
+  }
+}
+
+document.getElementById("formLogin").addEventListener("submit", async (e) => {
+  e.preventDefault(); // Previne recarregamento da página
+
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
 
@@ -59,19 +85,19 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
   }
 
   try {
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/usuarios/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, senha }),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      const data = await res.json();
       mensagemP.textContent = data.mensagem || "Erro no login";
       return;
     }
 
-    const data = await res.json();
     localStorage.setItem("token", data.token);
     exibirDashboard();
   } catch {
@@ -84,7 +110,9 @@ document.getElementById("btnLogout").addEventListener("click", () => {
   exibirLogin();
 });
 
-// Verifica se há token salvo ao carregar a página
+// Ao carregar a página, verifica se o token está salvo
 if (localStorage.getItem("token")) {
   exibirDashboard();
+} else {
+  exibirLogin();
 }
