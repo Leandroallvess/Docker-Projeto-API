@@ -103,7 +103,10 @@ CORS está habilitado para permitir que o frontend (separado) consuma a API
 
 👨‍💻 Autor
 Leandro Alves
-LinkedIn
+
+## 🌐 Contato
+
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/leandro-aallvess-dev)
 
 📜 Licença
 Este projeto está licenciado sob a MIT License.
