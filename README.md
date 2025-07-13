@@ -1,19 +1,8 @@
-# 🚀 Docker Projeto API - Backend
-
-Este é um projeto de API REST construída com **Node.js**, **Express** e **TypeScript**, containerizada com **Docker**. A API serve uma lista de produtos, categoria e usuario.
-
----
-
-- API RESTful em **Node.js + Express + TypeScript**
-- ORM com **Prisma** e banco de dados **PostgreSQL**
-- Autenticação com **JWT**
-- Frontend estático básico (HTML + JS puro) para consumir a API
-- Totalmente **dockerizado** com `docker-compose`
-
----
+🚀 Docker Projeto API - Backend
+API RESTful construída com Node.js, Express, TypeScript e Prisma ORM, containerizada via Docker.
+Possui autenticação JWT, cadastro/login de usuários, e CRUD para usuários, produtos e categorias.
 
 🧠 Tecnologias
-
 Node.js + Express
 
 TypeScript
@@ -22,37 +11,52 @@ Prisma ORM
 
 PostgreSQL
 
+JWT para autenticação e autorização
+
 Docker + Docker Compose
 
-JWT
+Frontend estático básico (HTML + JS puro) para consumo da API
 
-HTML + JS básico (Frontend)
+⚙️ Funcionalidades
+Cadastro, login e listagem de usuários
 
-## 🧪 Funcionalidades
+CRUD de categorias (com controle de acesso)
 
-- CRUD de **Categorias** (com autenticação)
-- CRUD de **Produtos** (relacionados às categorias)
-- Cadastro e login de **usuários**
-- Controle de acesso com JWT (`user` e `admin`)
-- Frontend que permite **login e listagem de categorias**
+CRUD de produtos vinculados a categorias
 
----
+Controle de acesso baseado em roles (user, admin)
 
-## 🚀 Como rodar o projeto
+Frontend simples para cadastro e consumo da API
 
-### Pré-requisitos
+🚀 Como rodar o projeto
+Pré-requisitos
+Docker e Docker Compose instalados
+Node.js (para rodar local sem Docker, opcional)
 
-- Docker + Docker Compose instalados
-
-### Subir containers
+Rodando via Docker Compose (recomendado)
 
 Na raiz do projeto, execute:
+docker compose up -d --build
+Isso irá construir e subir os containers backend e banco PostgreSQL.
 
-## docker compose up -d --build
+Rodando localmente (sem Docker)
+Navegue até a pasta backend
 
-## 🧱 Estrutura do Projeto
+Instale dependências:
+npm install
 
-<--------------------------------------------------------------------->
+Compile TypeScript para JavaScript:
+npm run build
+
+Rode a aplicação:
+npm start
+
+Seed do banco (usuário admin por padrão)
+
+Para criar dados iniciais no banco, rode:
+docker compose run --rm backend npm run seed
+
+🧱 Estrutura do projeto
 
 Docker-Projeto-API/
 ├── backend/
@@ -62,35 +66,40 @@ Docker-Projeto-API/
 │ │ ├── repositories/
 │ │ ├── middlewares/
 │ │ ├── entities/
-│ │ ├── routes.ts
+│ │ ├── router/index.ts
+│ │ ├── app.ts
 │ │ └── server.ts
 │ ├── prisma/
 │ │ ├── schema.prisma
 │ │ └── seed.ts
-│ └── package.json
+│ ├── package.json
+│ └── tsconfig.json
 ├── frontend/
-│ └── index.html
+│ ├── index.html
+│ ├── cadastrarUsuario.js
+│ └── style.css
 ├── docker-compose.yml
 └── Dockerfile
 
-<------------------------------------------------------>
+📡 Endpoints principais
+POST /api/usuarios/cadastrar - Cadastrar novo usuário
 
-🛠 Comandos úteis
-Rodar seeds do banco (usuário admin por padrão)
+POST /api/usuarios/login - Login de usuário
 
-docker compose run --rm backend npm run seed
+GET /api/usuarios/listar - Listar usuários
 
-Rotas protegidas
-Enviar o token no header:
+(Demais endpoints para produtos e categorias seguem padrão REST)
 
-Authorization: Bearer <token>
+⚠️ Importante
+Caso faça alterações no backend em TypeScript, lembre-se de rodar o build antes de executar a aplicação (npm run build)
 
-<-------------------------------------------------------->
+Para evitar erros de rota 404 ou receber HTML em respostas JSON, verifique que o servidor está rodando corretamente e que as rotas estão configuradas no router/index.ts
+
+CORS está habilitado para permitir que o frontend (separado) consuma a API
 
 👨‍💻 Autor
-Desenvolvido por Leandro Alves
-[LinkedIn](https://www.linkedin.com/in/leandro-aallvess-dev)
+Leandro Alves
+LinkedIn
 
-📌 Licença
+📜 Licença
 Este projeto está licenciado sob a MIT License.
-# Docker-projeto-API

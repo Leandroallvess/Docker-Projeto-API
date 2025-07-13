@@ -9,25 +9,30 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const JWT_SECRET = process.env.JWT_SECRET || "minha_chave_super_secreta_123";
 function autenticarJWT(req, res, next) {
     const authHeader = req.headers.authorization;
-    const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(" ")[1];
-    if (!token)
+    const token = (authHeader === null || authHeader === void 0 ? void 0 : authHeader.startsWith("Bearer "))
+        ? authHeader.split(" ")[1]
+        : undefined;
+    if (!token) {
         return res.status(401).json({ mensagem: "Token não fornecido" });
+    }
     try {
+        // Faz a verificação e já tipa como JwtPayload (objeto)
         const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-        if (typeof decoded === "object" && decoded !== null) {
+        if (decoded && typeof decoded === "object" && "id" in decoded) {
+            // Aqui você pode checar se os campos existem no payload
             req.user = {
-                id: decoded.id,
-                nome: decoded.nome,
-                email: decoded.email,
-                role: decoded.role,
+                id: Number(decoded.id),
+                nome: String(decoded.nome),
+                email: String(decoded.email),
+                role: String(decoded.role),
             };
-            next();
+            return next();
         }
         else {
             return res.status(403).json({ mensagem: "Token inválido" });
         }
     }
-    catch (_a) {
+    catch (error) {
         return res.status(403).json({ mensagem: "Token inválido ou expirado" });
     }
 }

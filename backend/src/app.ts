@@ -1,21 +1,23 @@
 import express from "express";
 import path from "path";
-import routes from "./routes";
+import cors from "cors";
+import router from "./router";
 
 const app = express();
 
-// Middleware para ler JSON
+app.use(cors());
 app.use(express.json());
 
-// ✅ ROTAS DA API DEVEM VIR PRIMEIRO
-app.use("/api", routes);
+app.use("/api", router);
 
-// ✅ SOMENTE DEPOIS: servir arquivos do frontend
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use("/api/*", (req, res) => {
+  res.status(404).json({ error: "Rota da API não encontrada" });
+});
 
-// ✅ Fallback para SPA (só se necessário — se usar React, Vue etc.)
+app.use(express.static(path.resolve(__dirname, "../../frontend")));
+
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/index.html"));
+  res.sendFile(path.resolve(__dirname, "../../frontend/index.html"));
 });
 
 export default app;
