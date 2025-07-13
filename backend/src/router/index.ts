@@ -12,7 +12,7 @@ router.get("/usuarios/listar", UsuarioController.listar);
 router.post("/usuarios/cadastrar", UsuarioController.cadastrar);
 router.post("/usuarios/login", UsuarioController.login);
 
-// Rotas Produto
+// Rotas Produto em teste, corrigindo erros
 router.get("/produtos", ProdutoController.listar);
 router.get(
   "/produtos/categoria/:categoriaId",
@@ -22,7 +22,7 @@ router.post("/produtos", ProdutoController.criar);
 router.put("/produtos/:id", ProdutoController.atualizar);
 router.delete("/produtos/:id", ProdutoController.deletar);
 
-// Rotas Categoria
+// Rotas Categoria em teste, corrigindo erros
 router.get("/categorias", CategoriaController.listar);
 router.get("/categorias/:id", CategoriaController.buscar);
 router.post("/categorias", CategoriaController.criar);

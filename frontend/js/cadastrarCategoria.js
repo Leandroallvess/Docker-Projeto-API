@@ -1,3 +1,4 @@
+
 export function cadastrarCategoria() {
     const form = document.getElementById("form-categoria");
   
@@ -12,9 +13,10 @@ export function cadastrarCategoria() {
           body: JSON.stringify({ nome }),
         });
   
-        if (!res.ok) throw new Error("Erro ao cadastrar categoria");
-        alert("✅ Categoria cadastrada com sucesso!");
-        form.reset();
+        if (!res.ok)
+          throw new Error("Erro ao cadastrar categoria");
+          alert("✅ Categoria cadastrada com sucesso!");
+          form.reset();
       } catch (error) {
         console.error("Erro:", error);
         alert("❌ Falha ao cadastrar categoria");
